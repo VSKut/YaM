@@ -37,7 +37,7 @@ class YamMenu {
                     },
                     {
                         label:'Quit',
-                        click: function(){
+                        click: () => {
                             app.isQuiting = true;
                             app.quit();
                         },
@@ -50,19 +50,19 @@ class YamMenu {
                 submenu: [
                     {
                         label: store.get('settings.tray') ? 'Hide from tray' : 'Show in tray',
-                        click: function(){
+                        click: () => {
                             store.set('settings.tray', !store.get('settings.tray'));
                         },
                     },
                     {
                         label: store.get('settings.notifications') ? 'Disable notifications' : 'Enable notifications',
-                        click: function(){
+                        click: () => {
                             store.set('settings.notifications', !store.get('settings.notifications'));
                         },
                     },
                     {
                         label: store.get('settings.shortcuts') ? 'Disable global shortcuts' : 'Enable global shortcuts',
-                        click: function(){
+                        click: () => {
                             store.set('settings.shortcuts', !store.get('settings.shortcuts'));
                         },
                     },
