@@ -13,8 +13,7 @@ const { Notificator } = require('./src/notificator');
 let win = null;
 
 app.on('ready', () => {
-    win = new BrowserWindow(
-        {
+    win = new BrowserWindow({
             backgroundColor: '#121212',
             width: 1200, height: 800,
             webPreferences: {
@@ -25,8 +24,7 @@ app.on('ready', () => {
                 icon: path.join(__dirname, 'build/icon.png')
             },
             minimizable: false,
-        }
-    );
+    });
     const player = new Player(win, ipcMain);
     const touchBar = new YTouchBar(player);
     const yamMenu = new YamMenu();

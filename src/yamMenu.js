@@ -29,6 +29,13 @@ class YamMenu {
                 label: 'YaM',
                 submenu: [
                     {
+                        label: 'About',
+                        role: 'about',
+                    },
+                    {
+                        type: 'separator',
+                    },
+                    {
                         label:'Quit',
                         click: function(){
                             app.isQuiting = true;
