@@ -1,6 +1,7 @@
 'use strict';
 
 const { globalShortcut, dialog, app } = require('electron');
+const store = require('./store');
 
 class ShortcutManager {
     constructor(win, player) {
@@ -9,20 +10,24 @@ class ShortcutManager {
     }
 
     bindKeys(){
-        if(!this.registerEvents()) {
+        if(!this.shortcutSubscription) {
+            this.shortcutSubscription = store.onDidChange('settings.shortcuts', (val) => (val) ? this.bindKeys() : globalShortcut.unregisterAll());
+        }
+
+        if(store.get('settings.shortcuts') && !this.registerEvents()) {
             dialog.showMessageBox({
-                    type: 'warning',
-                    buttons: ['Try again', 'Disable'],
-                    title: 'Cannot bing OS shortcuts',
-                    message: 'Cannot bind global OS shortcuts',
-                    detail: 'Please enable Accessibility:\nSystem Preferences -> Security & Privacy -> Accessibility -> Set checkbox "YaM"',
-                }).then((response) => {
+                type: 'warning',
+                buttons: ['Try again', 'Disable'],
+                title: 'Cannot bing OS shortcuts',
+                message: 'Cannot bind global OS shortcuts',
+                detail: 'Please enable Accessibility:\nSystem Preferences -> Security & Privacy -> Accessibility -> Set checkbox "YaM"',
+            }).then((response) => {
                 switch (response.response) {
                     case 0:
                         this.bindKeys();
                         break;
                     case 1:
-                        // Nothing to do
+                        store.set('settings.shortcuts', false);
                         break;
                 }
             })
@@ -30,6 +35,7 @@ class ShortcutManager {
     }
 
     registerEvents() {
+
         const bindings = {
             'MediaPlayPause': this.player.play,
             'MediaNextTrack': this.player.next,

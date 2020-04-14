@@ -27,7 +27,7 @@ app.on('ready', () => {
     });
     const player = new Player(win, ipcMain);
     const touchBar = new YTouchBar(player);
-    const yamMenu = new YamMenu();
+    const yamMenu = new YamMenu(player);
     const yamTray = new YamTray(win, player);
     const notificator = new Notificator(player);
 
@@ -50,6 +50,16 @@ app.on('ready', () => {
     });
 
     win.on('close', function (event) {
+        if(!app.isQuiting){
+            event.preventDefault();
+            win.hide();
+            app.dock.hide();
+        }
+
+        return false;
+    });
+
+    win.on('hide', function (event) {
         if(!app.isQuiting){
             event.preventDefault();
             win.hide();

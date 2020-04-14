@@ -50,7 +50,7 @@ class YamTray {
     getTrayStructure() {
         return Menu.buildFromTemplate([
             {
-                label: this.win.isVisible() ? 'Hide YaM' : 'Show YaM',
+                label: this.win.isVisible() ? 'Hide' : 'Show',
                 click: () => {
                     if(this.win.isVisible()) {
                         this.win.hide();
