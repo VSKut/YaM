@@ -1,10 +1,10 @@
 {
   "name": "YaM",
   "version": "0.0.1",
-  "description": "Yandex Music client with Touchbar and global shortcuts support",
+  "description": "YaM - Yandex.Music client for macOS",
   "author": "Yury Ivannikov <me@vskut.ru>",
   "homepage": "https://github.com/vskut/yam",
-  "license": "ISC",
+  "license": "GNU",
   "main": "index.js",
   "scripts": {
     "start": "DEV=1 electron .",
@@ -18,20 +18,8 @@
     "electron-store": "^5.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/register": "^7.5.5",
-    "babel-eslint": "^10.0.2",
     "electron": "^8.2.1",
-    "electron-builder": "^22.4.1",
-    "eslint": "^6.0.1",
-    "eslint-config-google": "^0.13.0",
-    "eslint-config-strongloop": "^2.1.0",
-    "lodash": ">=4.17.13",
-    "mocha": "^6.1.4",
-    "sinon": "^7.3.2",
-    "spectron": "^7.0.0"
+    "electron-builder": "^22.4.1"
   },
   "build": {
     "extraFiles": [
