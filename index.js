@@ -59,16 +59,6 @@ app.on('ready', () => {
         return false;
     });
 
-    win.on('hide', function (event) {
-        if(!app.isQuiting){
-            event.preventDefault();
-            win.hide();
-            app.dock.hide();
-        }
-
-        return false;
-    });
-
     win.on('ready-to-show', () => {
         app.dock.show();
         win.show();

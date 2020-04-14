@@ -1,6 +1,7 @@
 "use strict";
 
 const EventEmmiter = require('events');
+const store = require('./store');
 
 class Player extends EventEmmiter {
     constructor(window, ipcMain) {
@@ -83,31 +84,44 @@ class Player extends EventEmmiter {
     };
 
     volumeUp = () => {
-        let volume = (this.state.volume+0.1).toFixed(12);
-        if(volume >= 1) {
-            volume = 1;
+        let value = (this.state.volume+0.1).toFixed(12);
+        if(value >= 1) {
+            value = 1;
         }
-        this.window.webContents.executeJavaScript('externalAPI.setVolume('+volume+');')
+        this.window.webContents.executeJavaScript('externalAPI.setVolume('+value+');')
             .catch(()=>{
                 console.log('Some problems with volumeUp');
             });
     };
 
     volumeDown = () => {
-        let volume = (this.state.volume-0.1).toFixed(12);
-        if(volume <= 0) {
-            volume = 0;
+        let value = (this.state.volume-0.1).toFixed(12);
+        if(value <= 0) {
+            value = 0;
         }
-        this.window.webContents.executeJavaScript('externalAPI.setVolume('+volume+');')
+        this.window.webContents.executeJavaScript('externalAPI.setVolume('+value+');')
             .catch(()=>{
                 console.log('Some problems with volumeDown');
             });
     };
 
     volumeMute = () => {
-        // TODO: remember old position
-        let volume = this.state.volume ? 0 : 1;
-        this.window.webContents.executeJavaScript('externalAPI.setVolume('+volume+');')
+        let currentVolume = this.state.volume;
+        let value = store.get('player.mute.value', 0);
+
+        if(currentVolume !== 0) {
+            store.set('player.mute.value', currentVolume);
+            value = 0;
+        }
+
+        this.window.webContents.executeJavaScript('externalAPI.setVolume('+value+');')
+            .catch(()=>{
+                console.log('Some problems with volumeMute');
+            });
+    };
+
+    volumeSet = (value) => {
+        this.window.webContents.executeJavaScript('externalAPI.setVolume('+value+');')
             .catch(()=>{
                 console.log('Some problems with volumeMute');
             });

@@ -59,10 +59,6 @@ class YamMenu {
                     { type: 'separator' },
                     {
                         label: 'Hide',
-                        role: 'hide'
-                    },
-                    {
-                        label: 'Hide',
                         role: isMac ? 'close' : 'quit',
                     },
                     {
@@ -97,13 +93,13 @@ class YamMenu {
                         accelerator: "CommandOrControl+Shift+Option+L",
                     },
                     {
-                        label: '🔇 Mute',
-                        click: this.player.volumeMute,
+                        label: '🔉 Volume down',
+                        click: this.player.volumeDown,
                         accelerator: "CommandOrControl+Shift+Option+K",
                     },
                     {
-                        label: '🔉 Volume down',
-                        click: this.player.volumeDown,
+                        label: '🔇 Mute',
+                        click: this.player.volumeMute,
                         accelerator: "CommandOrControl+Shift+Option+J",
                     },
                 ],
