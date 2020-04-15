@@ -161,6 +161,11 @@ class Player extends EventEmmiter {
         return this.state.track.cover.replace('%%', size);
     };
 
+    getWebLink = () => {
+        console.log(this.state.track);
+        return this.state.track.link;
+    };
+
     currentTrack = () => { 
         return this.state.track;
     };

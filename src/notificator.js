@@ -36,6 +36,8 @@ class Notificator {
                 });
 
                 notification.show();
+
+                notification.on('click', () => require('electron').shell.openExternal('https://music.yandex.ru'+this.player.getWebLink()));
             }
 
         });
