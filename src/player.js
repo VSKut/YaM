@@ -88,10 +88,7 @@ class Player extends EventEmmiter {
         if(value >= 1) {
             value = 1;
         }
-        this.window.webContents.executeJavaScript('externalAPI.setVolume('+value+');')
-            .catch(()=>{
-                console.log('Some problems with volumeUp');
-            });
+        this.volumeSet(value)
     };
 
     volumeDown = () => {
@@ -99,25 +96,17 @@ class Player extends EventEmmiter {
         if(value <= 0) {
             value = 0;
         }
-        this.window.webContents.executeJavaScript('externalAPI.setVolume('+value+');')
-            .catch(()=>{
-                console.log('Some problems with volumeDown');
-            });
+        this.volumeSet(value);
     };
 
-    volumeMute = () => {
+    mute = () => {
         let currentVolume = this.state.volume;
         let value = store.get('player.mute.value', 0);
-
         if(currentVolume !== 0) {
             store.set('player.mute.value', currentVolume);
             value = 0;
         }
-
-        this.window.webContents.executeJavaScript('externalAPI.setVolume('+value+');')
-            .catch(()=>{
-                console.log('Some problems with volumeMute');
-            });
+        this.volumeSet(value);
     };
 
     volumeSet = (value) => {

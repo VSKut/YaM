@@ -30,7 +30,7 @@ class Notificator {
                 const notification = new Notification({
                     title: track.title,
                     subtitle: artists,
-                    body: secFormat(Math.ceil(track.duration)),
+                    body: secFormat(Math.floor(track.duration)),
                     // icon: 'https://'+this.player.getCoverLink(),
                     silent: true,
                 });
