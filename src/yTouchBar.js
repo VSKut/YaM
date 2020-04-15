@@ -141,10 +141,6 @@ class YTouchBar {
         });
 
         this.player.on('EVENT_PROGRESS', () => {
-            console.log(this.player.state.progress.position);
-            console.log(Math.floor(this.player.state.progress.position));
-
-
             if(this.player.state.progress.duration) {
                 this.trackSlider.maxValue = Math.floor(this.player.state.progress.duration);
                 this.trackSlider.value = Math.floor(this.player.state.progress.position);
