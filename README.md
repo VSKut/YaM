@@ -3,10 +3,10 @@
 # YaM - Yandex.Music client for macOS
 ## Description
 ### Features
-- [Tray](tray)
+- [Tray](#tray)
 - System notifications
-- Global shortcuts
-- [Touchbar](touchbar)
+- [Global shortcuts](#global-shortcuts)
+- [Touchbar](#touchbar)
 
 ### Main window
 <img alt="yam_main" src="https://user-images.githubusercontent.com/1468809/79513409-6b0b6480-804c-11ea-9686-bbcc53325ca2.png">
@@ -29,6 +29,11 @@
 ``Track list panel``
 <img width="1085" alt="tauchbar_list" src="https://user-images.githubusercontent.com/1468809/79512294-cf78f480-8049-11ea-82a9-911abe4dff18.png">
 
+### Global shortcuts
+- In-app <b>volume UP</b> - ``CMD+OPT+SHIFT+L``
+- In-app <b>volume DOWN</b> - ``CMD+OPT+SHIFT+K``
+- In-app <b>volume MUTE</b> - ``CMD+OPT+SHIFT+J``
+- <b>Show/Hide app</b> - ``CMD+OPT+SHIFT+H``
 
 ## Install
 
