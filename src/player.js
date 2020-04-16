@@ -82,33 +82,26 @@ class Player extends EventEmmiter {
             });
     };
 
+    volumeSet = (value) => {
+        value = (!value) ? 0 : (value > 1) ? 1 : value;
+        this.window.webContents.executeJavaScript('externalAPI.setVolume('+value+');')
+            .catch(()=>{
+                console.log('Some problems with volumeSet');
+            });
+    };
+
     volumeUp = () => {
-        let value = (this.state.volume+0.1).toFixed(12);
-        if(value >= 1) {
-            value = 1;
-        }
-        this.volumeSet(value)
+        this.volumeSet((this.state.volume+0.05).toFixed(2))
     };
 
     volumeDown = () => {
-        let value = (this.state.volume-0.1).toFixed(12);
-        if(value <= 0) {
-            value = 0;
-        }
-        this.volumeSet(value);
+        this.volumeSet((this.state.volume-0.05).toFixed(2));
     };
 
     mute = () => {
         this.window.webContents.executeJavaScript('externalAPI.toggleMute();')
             .catch(()=>{
                 console.log('Some problems with toggleMute');
-            });
-    };
-
-    volumeSet = (value) => {
-        this.window.webContents.executeJavaScript('externalAPI.setVolume('+value+');')
-            .catch(()=>{
-                console.log('Some problems with volumeSet');
             });
     };
 

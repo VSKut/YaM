@@ -149,7 +149,7 @@ class YTouchBar {
         });
 
         this.player.on('EVENT_VOLUME', () => {
-            let playerVolume =  Math.floor(this.player.state.volume * 100);
+            let playerVolume =  Math.round(this.player.state.volume * 100);
             this.volumeSlider.value = playerVolume;
             this.volumeSlider.label = playerVolume.toString();
 
