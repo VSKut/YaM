@@ -41,7 +41,7 @@ class ShortcutManager {
             'MediaPreviousTrack': this.player.prev,
             'CommandOrControl+Shift+Option+L': this.player.volumeUp,
             'CommandOrControl+Shift+Option+K': this.player.volumeDown,
-            'CommandOrControl+Shift+Option+J': this.player.volumeMute,
+            'CommandOrControl+Shift+Option+J': this.player.mute,
             'CommandOrControl+Shift+Option+H': () => {
                 if(this.win.isVisible()) {
                     app.dock.hide();

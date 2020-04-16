@@ -100,19 +100,16 @@ class Player extends EventEmmiter {
     };
 
     mute = () => {
-        let currentVolume = this.state.volume;
-        let value = store.get('player.mute.value', 0);
-        if(currentVolume !== 0) {
-            store.set('player.mute.value', currentVolume);
-            value = 0;
-        }
-        this.volumeSet(value);
+        this.window.webContents.executeJavaScript('externalAPI.toggleMute();')
+            .catch(()=>{
+                console.log('Some problems with toggleMute');
+            });
     };
 
     volumeSet = (value) => {
         this.window.webContents.executeJavaScript('externalAPI.setVolume('+value+');')
             .catch(()=>{
-                console.log('Some problems with volumeMute');
+                console.log('Some problems with volumeSet');
             });
     };
 

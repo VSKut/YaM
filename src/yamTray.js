@@ -83,7 +83,7 @@ class YamTray {
             },
             {
                 label: '🔇 Mute',
-                click: this.player.volumeMute,
+                click: this.player.mute,
                 accelerator: "CommandOrControl+Shift+Option+K",
             },
             {
