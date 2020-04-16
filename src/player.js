@@ -53,6 +53,14 @@ class Player extends EventEmmiter {
                 });
         });
 
+        this.ipcMain.on('EVENT_TRACKS_LIST', () => {
+            this.window.webContents.executeJavaScript('externalAPI.getTracksList();')
+                .then( (trackList) => {
+                    this.state.trackList = trackList;
+                    this.emit('EVENT_TRACKS_LIST');
+                });
+        });
+
         this.ipcMain.on('EVENT_ADVERT', (_, arg) => {
             this.state.advert = arg;
             this.emit('EVENT_ADVERT');
@@ -63,6 +71,13 @@ class Player extends EventEmmiter {
 
     play = () => {
         this.window.webContents.executeJavaScript('externalAPI.togglePause();')
+            .catch(()=>{
+                console.log('Some problems with togglePause');
+            });
+    };
+
+    playByIndex = (index) => {
+        this.window.webContents.executeJavaScript('externalAPI.play('+index+');')
             .catch(()=>{
                 console.log('Some problems with play');
             });
@@ -123,7 +138,8 @@ class Player extends EventEmmiter {
 
     //Info methods
     canPlay = () => {
-        return !this.state.adverb && this.state.controls && this.state.controls.play;
+        console.log(this.state);
+        return !this.state.adverb && this.state.controls && this.state.controls.index;
     };
 
     isPlaying = () => {
@@ -155,8 +171,16 @@ class Player extends EventEmmiter {
         return this.state.track.link;
     };
 
-    currentTrack = () => { 
+    hasCurrentTrack = () => {
+        return !!this.state.track;
+    };
+
+    currentTrack = () => {
         return this.state.track;
+    };
+
+    currentTrackList = () => {
+        return this.state.trackList;
     };
 
     controls = () => {

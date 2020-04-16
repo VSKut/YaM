@@ -31,6 +31,10 @@ window.onready = function(){
         ipcRenderer.send('EVENT_VOLUME', null);
     });
 
+    externalAPI.on(externalAPI.EVENT_TRACKS_LIST, () => {
+        ipcRenderer.send('EVENT_TRACKS_LIST', null);
+    });
+
     externalAPI.on(externalAPI.EVENT_ADVERT, (arg) => {
         ipcRenderer.send('EVENT_ADVERT', arg);
     });

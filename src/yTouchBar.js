@@ -1,7 +1,7 @@
 'use strict';
 
 const { TouchBar } = require('electron');
-const { TouchBarButton, TouchBarSpacer, TouchBarLabel, TouchBarPopover, TouchBarSlider } = TouchBar;
+const { TouchBarButton, TouchBarSpacer, TouchBarLabel, TouchBarPopover, TouchBarSlider, TouchBarScrubber } = TouchBar;
 const nativeImage = require('electron').nativeImage;
 
 class YTouchBar {
@@ -90,6 +90,13 @@ class YTouchBar {
             maxValue: 0,
             value: 0,
             change: (position) => {
+                if (!this.player.hasCurrentTrack()) {
+                    return;
+                }
+                if(!this.player.state.progress.loaded) {
+                    this.trackSlider.value = 0;
+                    return;
+                }
                 this.player.setPosition(position);
                 this.trackSlider.label = this.formatSeconds(Math.floor(position))+' - '+this.formatSeconds(Math.floor(this.player.state.track.duration));
             }
@@ -100,7 +107,32 @@ class YTouchBar {
             items: new TouchBar({
                 items: [
                     this.playButton,
+                    this.prevButton,
+                    this.nextButton,
                     this.trackSlider,
+                ],
+            }),
+        });
+
+        this.listScrubber = new TouchBarScrubber({
+            items: [
+                { label: 'foo' }
+            ],
+            selectedStyle: 'outline',
+            mode: 'free',
+            showArrowButtons: true,
+            continuous: false,
+            highlight: (value) => {
+                this.player.playByIndex(value)
+            }
+
+        });
+
+        this.listPopover = new TouchBarPopover({
+            label: 'List',
+            items: new TouchBar({
+                items: [
+                    this.listScrubber
                 ],
             }),
         });
@@ -109,12 +141,10 @@ class YTouchBar {
             items: [
                 this.volumePopover,
                 this.trackPopover,
+                this.listPopover,
                 this.playButton,
-                this.prevButton,
-                this.nextButton,
                 new TouchBarSpacer({ size: 'small' }),
                 this.trackLabel,
-                new TouchBarSpacer({ size: 'small' }),
             ],
         });
 
@@ -126,10 +156,20 @@ class YTouchBar {
     subscribeEvents() {
         this.player.on('EVENT_TRACK', () => {
             const track = this.player.currentTrack();
+            if(!this.player.hasCurrentTrack()) {
+                this.trackLabel.label = null;
+                this.trackSlider.maxValue = 0;
+                this.trackSlider.label = '0:00 - 0:00';
+                return;
+            }
+
             const artists = track.artists.map((item) => {
                 return item.title;
             }).join(', ');
-            this.trackLabel.label = [artists, track.title].join(' - ');
+
+            const trackLabelPre = (!artists && track.album.title) ? track.album.title : artists;
+
+            this.trackLabel.label = [trackLabelPre, track.title].join(' - ');
             this.likeButton.backgroundColor = this.player.isCurrentTrackLiked() ? this.colors.red : this.colors.gray;
 
             this.trackSlider.maxValue = Math.floor(track.duration);
@@ -145,6 +185,27 @@ class YTouchBar {
                 this.trackSlider.maxValue = Math.floor(this.player.state.progress.duration);
                 this.trackSlider.value = Math.floor(this.player.state.progress.position);
                 this.trackSlider.label = this.formatSeconds(Math.floor(this.player.state.progress.position))+' - '+this.formatSeconds(Math.floor(this.player.state.progress.duration));
+            }
+        });
+
+        this.player.on('EVENT_TRACKS_LIST', () => {
+            let trackList = this.player.currentTrackList();
+            if(!trackList) {
+                this.listScrubber.items = null;
+            }
+
+            const finalTrackList = trackList.map((item) => {
+                const artists = item.artists.map((item) => item.title).join(', ');
+
+                const trackLabelPre = (!artists && item.album.title) ? item.album.title : artists;
+
+                return {
+                    label: [trackLabelPre, item.title].join(' - '),
+                };
+            });
+
+            if(this.listScrubber.items.length !== finalTrackList.length || !this.listScrubber.items.every((v,i)=> v.label === finalTrackList[i].label)) {
+                this.listScrubber.items = finalTrackList;
             }
         });
 
@@ -169,6 +230,7 @@ class YTouchBar {
         });
 
         this.player.on('EVENT_CONTROLS', () => {
+            this.playButton.backgroundColor = this.player.hasCurrentTrack() ? this.colors.green : this.colors.gray;
             this.prevButton.backgroundColor = this.player.canPrev() ? this.colors.purple : this.colors.gray;
             this.nextButton.backgroundColor = this.player.canNext() ? this.colors.purple : this.colors.gray;
         });
