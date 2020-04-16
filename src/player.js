@@ -1,7 +1,6 @@
 "use strict";
 
 const EventEmmiter = require('events');
-const store = require('./store');
 
 class Player extends EventEmmiter {
     constructor(window, ipcMain) {
