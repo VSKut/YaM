@@ -1,0 +1,35 @@
+matrix:
+  include:
+    - os: windows
+      language: node_js
+      node_js: "node"
+    - os: linux
+      dist: xenial
+      services:
+        - xvfb
+      language: node_js
+      node_js: "node"
+      before_install:
+        - sudo apt-get install -y rpm
+    - os: osx
+      language: node_js
+      node_js: "node"
+
+cache:
+  directories:
+    - node_modules
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+
+branches:
+  only:
+  - master
+  - develop
+  - feature/travis_ci
+
+script:
+- |
+    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      npm test
+    fi;
+    npm run dist

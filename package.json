@@ -1,0 +1,57 @@
+{
+  "name": "YaM",
+  "version": "0.0.2",
+  "description": "YaM - Yandex.Music client for macOS",
+  "author": "Yury Ivannikov <me@vskut.ru>",
+  "homepage": "https://github.com/vskut/yam",
+  "license": "GNU",
+  "main": "index.js",
+  "scripts": {
+    "start": "DEV=1 electron .",
+    "dist": "electron-builder",
+    "dist:all": "electron-builder -mwl --publish never",
+    "dist:linux": "electron-builder -l --publish never",
+    "dist:osx": "electron-builder -m --publish never",
+    "dist:windows": "electron-builder -w --publish never"
+  },
+  "dependencies": {
+    "electron-store": "^5.1.1"
+  },
+  "devDependencies": {
+    "electron": "^8.2.2",
+    "electron-builder": "^22.4.1"
+  },
+  "build": {
+    "extraFiles": [
+      {
+        "from": "build",
+        "to": "resources",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "appId": "com.electron.yam",
+    "productName": "YaM",
+    "icon": "./assest/icons/icon.png",
+    "mac": {
+      "category": "public.app-category.music",
+      "target": "dmg"
+    },
+    "linux": {
+      "category": "Audio",
+      "target": [
+        "tar.gz",
+        "snap",
+        "deb",
+        "rpm"
+      ]
+    },
+    "win": {
+      "target": [
+        "portable",
+        "msi"
+      ]
+    }
+  }
+}
