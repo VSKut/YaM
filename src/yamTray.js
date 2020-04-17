@@ -24,6 +24,8 @@ class YamTray {
                 this.makeTray();
             } else {
                 this.tray.destroy();
+                this.tray = null;
+                app.dock.show();
             }
         });
 
@@ -54,7 +56,9 @@ class YamTray {
                 click: () => {
                     if(this.win.isVisible()) {
                         this.win.hide();
-                        app.dock.hide();
+                        if(store.get('settings.tray')) {
+                            app.dock.hide();
+                        }
                     } else {
                         this.win.show();
                         app.dock.show();

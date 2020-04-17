@@ -8,6 +8,7 @@ const { ShortcutManager } = require('./src/shortcutManager');
 const { YamTray } = require('./src/yamTray');
 const { YamMenu } = require('./src/yamMenu');
 const { Notificator } = require('./src/notificator');
+const store = require('./src/store');
 
 
 let win = null;
@@ -53,11 +54,15 @@ app.on('ready', () => {
         if(!app.isQuiting){
             event.preventDefault();
             win.hide();
-            app.dock.hide();
+            if(store.get('settings.tray')) {
+                app.dock.hide();
+            }
         }
 
         return false;
     });
+
+    app.on('activate', () => win.show());
 
     win.on('ready-to-show', () => {
         app.dock.show();

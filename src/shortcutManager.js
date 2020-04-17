@@ -44,7 +44,9 @@ class ShortcutManager {
             'CommandOrControl+Shift+Option+J': this.player.mute,
             'CommandOrControl+Shift+Option+H': () => {
                 if(this.win.isVisible()) {
-                    app.dock.hide();
+                    if(store.get('settings.tray')) {
+                        app.dock.hide();
+                    }
                     this.win.hide();
                 } else {
                     app.dock.show();
