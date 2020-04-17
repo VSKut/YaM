@@ -1,8 +1,7 @@
 'use strict';
 
 const { Notification } = require('electron');
-const Store = require('electron-store');
-const store = new Store();
+const store = require('./store');
 
 class Notificator {
     constructor(player) {

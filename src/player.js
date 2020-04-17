@@ -179,6 +179,10 @@ class Player extends EventEmmiter {
         return this.state.track;
     };
 
+    hasCurrentTrackList = () => {
+        return !!this.state.trackList.length;
+    };
+
     currentTrackList = () => {
         return this.state.trackList;
     };

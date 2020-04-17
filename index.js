@@ -7,6 +7,7 @@ const { YamTouchBar } = require('./src/yamTouchBar');
 const { ShortcutManager } = require('./src/shortcutManager');
 const { YamTray } = require('./src/yamTray');
 const { YamMenu } = require('./src/yamMenu');
+const { YamDock } = require('./src/yamDock');
 const { Notificator } = require('./src/notificator');
 const store = require('./src/store');
 
@@ -30,6 +31,7 @@ app.on('ready', () => {
     const touchBar = new YamTouchBar(player);
     const yamMenu = new YamMenu(player);
     const yamTray = new YamTray(win, player);
+    const yamDock = new YamDock(player);
     const notificator = new Notificator(player);
 
     const shortcuts = new ShortcutManager(win, player);
@@ -40,6 +42,7 @@ app.on('ready', () => {
             yamMenu.build();
             yamTray.build();
             notificator.build();
+            yamDock.build();
             shortcuts.bindKeys(win);
         }
     });

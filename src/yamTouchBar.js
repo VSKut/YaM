@@ -210,13 +210,13 @@ class YamTouchBar {
             this.volumeSlider.label = playerVolume.toString();
 
             if(this.player.state.volume === 0) {
-                this.muteButton.backgroundColor = '#ff5555';
+                this.muteButton.backgroundColor = this.colors.red;
                 this.muteButton.icon = this.images.volumeMin;
             } else if(this.player.state.volume > 0 && this.player.state.volume <= 0.33) {
                 this.muteButton.backgroundColor = '#ff9994';
                 this.muteButton.icon = this.images.volumeLow;
             } else if(this.player.state.volume > 0.33 && this.player.state.volume <= 0.66) {
-                this.muteButton.backgroundColor = '#8ccc96';
+                this.muteButton.backgroundColor = this.colors.green;
                 this.muteButton.icon = this.images.volumeMid;
             } else if(this.player.state.volume > 0.66) {
                 this.muteButton.backgroundColor = '#37cc56';
