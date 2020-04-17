@@ -1,12 +1,12 @@
 [![Build Status](https://travis-ci.org/vskut/YaM.svg?branch=master)](https://travis-ci.org/vskut/YaM)
 
 # YaM - Yandex.Music client for macOS
+<img width="128" alt="yam_main" src="https://user-images.githubusercontent.com/1468809/79557851-f8ca6c80-80ab-11ea-9c5e-c0c50618d34b.png">
+
 ## Description
-### Features
-- [Tray](#tray)
-- System notifications
-- [Global shortcuts](#global-shortcuts)
-- [Touchbar](#touchbar)
+This is a client for the <b>Yandex.Music</b> service written using <b>Electron</b> specifically for <b>macOS</b>.
+
+Support for <b>[Touchbar](#touchbar)</b>, <b>[Global shortcuts](#global-shortcuts)</b>, <b>[Tray](#tray)</b> and <b>System notifications</b>
 
 ### Main window
 <img alt="yam_main" src="https://user-images.githubusercontent.com/1468809/79513409-6b0b6480-804c-11ea-9686-bbcc53325ca2.png">
