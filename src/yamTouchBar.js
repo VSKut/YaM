@@ -4,7 +4,7 @@ const { TouchBar } = require('electron');
 const { TouchBarButton, TouchBarSpacer, TouchBarLabel, TouchBarPopover, TouchBarSlider, TouchBarScrubber } = TouchBar;
 const nativeImage = require('electron').nativeImage;
 
-class YTouchBar {
+class YamTouchBar {
     constructor(player) {
         this.player = player;
 
@@ -115,14 +115,12 @@ class YTouchBar {
         });
 
         this.listScrubber = new TouchBarScrubber({
-            items: [
-                { label: 'foo' }
-            ],
+            items: [],
             selectedStyle: 'outline',
             mode: 'free',
             showArrowButtons: true,
             continuous: false,
-            highlight: (value) => {
+            select: (value) => {
                 this.player.playByIndex(value)
             }
 
@@ -132,7 +130,7 @@ class YTouchBar {
             label: 'List',
             items: new TouchBar({
                 items: [
-                    this.listScrubber
+                    this.listScrubber,
                 ],
             }),
         });
@@ -192,19 +190,16 @@ class YTouchBar {
             let trackList = this.player.currentTrackList();
             if(!trackList) {
                 this.listScrubber.items = null;
+                return;
             }
 
-            const finalTrackList = trackList.map((item) => {
-                const artists = item.artists.map((item) => item.title).join(', ');
-
-                const trackLabelPre = (!artists && item.album.title) ? item.album.title : artists;
-
-                return {
-                    label: [trackLabelPre, item.title].join(' - '),
-                };
+            const finalTrackList = trackList.slice(0,75).map((item) => {
+                const artists =  (item && item.artists) ? item.artists.map((item) => item.title).join(', ') : null;
+                const trackLabelPre = (!artists && item.album.title) ? item.album.title : (artists) ? artists : null;
+                return { label: [trackLabelPre, item.title].join(' - ') };
             });
 
-            if(this.listScrubber.items.length !== finalTrackList.length || !this.listScrubber.items.every((v,i)=> v.label === finalTrackList[i].label)) {
+            if(JSON.stringify(this.listScrubber.items) !== JSON.stringify(finalTrackList)) {
                 this.listScrubber.items = finalTrackList;
             }
         });
@@ -241,4 +236,4 @@ class YTouchBar {
     }
 }
 
-module.exports.YTouchBar = YTouchBar;
+module.exports.YamTouchBar = YamTouchBar;

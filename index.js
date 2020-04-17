@@ -3,7 +3,7 @@
 const path = require('path');
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { Player } = require('./src/player');
-const { YTouchBar } = require('./src/yTouchBar');
+const { YamTouchBar } = require('./src/yamTouchBar');
 const { ShortcutManager } = require('./src/shortcutManager');
 const { YamTray } = require('./src/yamTray');
 const { YamMenu } = require('./src/yamMenu');
@@ -26,7 +26,7 @@ app.on('ready', () => {
             minimizable: false,
     });
     const player = new Player(win, ipcMain);
-    const touchBar = new YTouchBar(player);
+    const touchBar = new YamTouchBar(player);
     const yamMenu = new YamMenu(player);
     const yamTray = new YamTray(win, player);
     const notificator = new Notificator(player);
