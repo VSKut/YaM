@@ -29,6 +29,17 @@ class YamTray {
             }
         });
 
+        this.player.on('EVENT_VOLUME', () => {
+            let playerVolume = Math.round(this.player.currentVolume() * 100);
+            this.tray.setTitle(playerVolume.toString()+'%');
+
+            setTimeout((current) => {
+                if(current === this.player.currentVolume()) {
+                    this.tray.setTitle('');
+                }
+            }, 500, this.player.currentVolume());
+        });
+
         this.win.on('hide', () => {
             if(this.tray) {
                 this.tray.setContextMenu(this.getTrayStructure());
@@ -106,6 +117,14 @@ class YamTray {
             }
         ]);
 
+    }
+
+    setVolumeTitle() {
+        let volume = this.player.currentVolume();
+        console.log(volume);
+        if(volume !== null) {
+            this.tray.setTitle(Math.floor(volume * 100).toString());
+        }
     }
 }
 

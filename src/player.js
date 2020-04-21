@@ -187,6 +187,10 @@ class Player extends EventEmmiter {
         return this.state.trackList;
     };
 
+    currentVolume = () => {
+        return this.state.volume;
+    };
+
     controls = () => {
         return this.state.controls;
     };
