@@ -6,7 +6,7 @@
 ## Description
 This is a client for the <b>Yandex.Music</b> service written using <b>Electron</b> specifically for <b>macOS</b>.
 
-Support for <b>[Touchbar](#touchbar)</b>, <b>[Global shortcuts](#global-shortcuts)</b>, <b>[Tray](#tray)</b> and <b>System notifications</b>
+Support for <b>[Touchbar](#touchbar)</b>, <b>[Global shortcuts](#global-shortcuts)</b>, <b>[Tray](#tray)</b>, <b>System notifications</b> and <b>AirPods support</b>
 
 ### Main window
 <img alt="yam_main" src="https://user-images.githubusercontent.com/1468809/79513409-6b0b6480-804c-11ea-9686-bbcc53325ca2.png">
@@ -34,9 +34,9 @@ Support for <b>[Touchbar](#touchbar)</b>, <b>[Global shortcuts](#global-shortcut
 - In-app <b>volume DOWN</b> - ``CMD+OPT+SHIFT+K``
 - In-app <b>volume MUTE</b> - ``CMD+OPT+SHIFT+J``
 - <b>Show/Hide app</b> - ``CMD+OPT+SHIFT+H``
-- <b>Play/Pause track</b> - ``MediaPlayPause``
-- <b>Next track</b> - ``MediaNextTrack``
-- <b>Previous track</b> - ``MediaPreviousTrack``
+- <b>Play/Pause track</b> - ``MediaPlayPause`` **Airpods support*
+- <b>Next track</b> - ``MediaNextTrack`` **Airpods support*
+- <b>Previous track</b> - ``MediaPreviousTrack`` **Airpods support*
 
 ## Install
 
